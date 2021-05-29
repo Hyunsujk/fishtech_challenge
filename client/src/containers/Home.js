@@ -1,5 +1,14 @@
 import React from "react";
-import { Button, TextField, Grid, Box, Typography } from "@material-ui/core";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import { FormikTextField } from "../components/FormikTextFields";
+import {
+  Button,
+  Grid,
+  Box,
+  Typography,
+  LinearProgress,
+} from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import styled from "styled-components";
 
@@ -16,19 +25,26 @@ const ResultContainer = styled(Box)`
   min-width: 500px;
 `;
 
-const Home = () => {
-  const [searchString, setSearchString] = React.useState("");
-  const [data, setData] = React.useState(null);
+const validationSchema = Yup.object().shape({
+  search: Yup.string().required("Required"),
+});
 
-  const handleSearch = () => {
-    console.log("searchString", searchString);
+const Home = () => {
+  const [data, setData] = React.useState(null);
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const handleSearch = (searchString) => {
+    setIsLoading(true);
     fetch("/getData", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ searchString: searchString }),
+      body: JSON.stringify({ searchString: searchString.search }),
     })
       .then((res) => res.json())
-      .then((data) => setData(data.WhoisRecord))
+      .then((data) => {
+        setData(data.WhoisRecord);
+        setIsLoading(false);
+      })
       .catch((err) => console.log(err));
   };
 
@@ -45,39 +61,58 @@ const Home = () => {
           <Typography variant="h3">Fishtech Challenge</Typography>
         </Grid>
         <Grid item xs={12}>
-          <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="flex-end"
-            spacing={3}
+          <Formik
+            initialValues={{ search: "" }}
+            validationSchema={validationSchema}
+            onSubmit={(values, { setSubmitting, resetForm }) => {
+              setSubmitting(true);
+              handleSearch(values);
+              resetForm({});
+              setSubmitting(false);
+            }}
           >
-            <Grid item xs>
-              <TextField
-                fullWidth
-                label="Search domain"
-                variant="outlined"
-                onChange={(e) => setSearchString(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={2}>
-              <Button
-                fullWidth
-                color="primary"
-                variant="contained"
-                startIcon={<SearchIcon />}
-                onClick={handleSearch}
-              >
-                Search
-              </Button>
-            </Grid>
-          </Grid>
+            {({ isSubmitting }) => (
+              <Form>
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-between"
+                  alignItems="flex-end"
+                  spacing={3}
+                >
+                  <Grid item xs>
+                    <Field
+                      component={FormikTextField}
+                      label="Search Domain"
+                      name="search"
+                    />
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Button
+                      disabled={isSubmitting}
+                      type="submit"
+                      fullWidth
+                      color="primary"
+                      variant="contained"
+                      startIcon={<SearchIcon />}
+                    >
+                      Search
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Form>
+            )}
+          </Formik>
         </Grid>
         <Grid item xs={12}>
           <ResultContainer component="div" overflow="auto" whiteSpace="normal">
-            <div>
-              <pre>{data ? JSON.stringify(data, null, 2) : null}</pre>
-            </div>
+            {isLoading ? (
+              <LinearProgress />
+            ) : (
+              <div>
+                <pre>{data ? JSON.stringify(data, null, 2) : null}</pre>
+              </div>
+            )}
           </ResultContainer>
         </Grid>
       </Grid>
