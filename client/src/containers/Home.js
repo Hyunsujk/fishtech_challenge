@@ -22,7 +22,7 @@ const Home = () => {
     fetch("/getData", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ search_string: searchString }),
+      body: JSON.stringify({ searchString: searchString }),
     })
       .then((res) => res.json())
       .then((data) => setData(data))
@@ -49,7 +49,7 @@ const Home = () => {
             <Grid item xs>
               <TextField
                 fullWidth
-                label="Search data"
+                label="Search domain"
                 variant="outlined"
                 onChange={(e) => setSearchString(e.target.value)}
               />
