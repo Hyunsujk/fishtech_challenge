@@ -25,7 +25,7 @@ const Home = () => {
       body: JSON.stringify({ searchString: searchString }),
     })
       .then((res) => res.json())
-      .then((data) => setData(data))
+      .then((data) => setData(data.WhoisRecord))
       .catch((err) => console.log(err));
   };
 
@@ -60,7 +60,9 @@ const Home = () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <ResultContainer variant="outlined">{data}</ResultContainer>
+          <ResultContainer variant="outlined">
+            {data ? JSON.stringify(data) : null}
+          </ResultContainer>
         </Grid>
       </Grid>
     </LayoutContainer>
