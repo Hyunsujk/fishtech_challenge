@@ -44,12 +44,6 @@ app.post("/getData", (req, res) => {
       response.on("end", function () {
         const parsedData = JSON.parse(rawData);
         res.json(parsedData);
-
-        try {
-          console.log("parsedData", parsedData);
-        } catch (e) {
-          console.log(e.message);
-        }
       });
     })
     .on("error", function (e) {
