@@ -1,16 +1,18 @@
 import React from "react";
-import { Button, TextField, Paper, Grid, Box } from "@material-ui/core";
+import { Button, TextField, Grid, Box } from "@material-ui/core";
 import styled from "styled-components";
 
 const LayoutContainer = styled(Box)`
-  margin: 10rem 20rem;
-  min-width: 500px;
+  margin: 2rem;
+  min-width: 90vw;
+  min-height: 80vh;
 `;
 
-const ResultContainer = styled(Paper)`
-  overflow: hidden;
-  overflow-y: auto;
+const ResultContainer = styled(Box)`
+  border: solid 2px black;
+  padding: 10px;
   min-height: 500px;
+  min-width: 500px;
 `;
 
 const Home = () => {
@@ -60,7 +62,7 @@ const Home = () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <ResultContainer variant="outlined">
+          <ResultContainer component="div" overflow="auto" whiteSpace="normal">
             <div>
               <pre>{data ? JSON.stringify(data, null, 2) : null}</pre>
             </div>
