@@ -4,8 +4,15 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 
-app.get("/api", (req, res) => {
-  res.json({ message: "test server" });
+app.use(
+  express.json({
+    type: ["application/json", "text/plain"],
+  })
+);
+
+app.post("/getData", (req, res) => {
+  console.log("req", req.body);
+  res.json(req.body.search_string);
 });
 
 app.listen(PORT, () => {

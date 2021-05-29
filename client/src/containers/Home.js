@@ -14,12 +14,19 @@ const ResultContainer = styled(Paper)`
 `;
 
 const Home = () => {
+  const [searchString, setSearchString] = React.useState("");
   const [data, setData] = React.useState(null);
 
   const handleSearch = () => {
-    fetch("/api")
+    console.log("searchString", searchString);
+    fetch("/getData", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ search_string: searchString }),
+    })
       .then((res) => res.json())
-      .then((data) => setData(data.message));
+      .then((data) => setData(data))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -40,7 +47,12 @@ const Home = () => {
             spacing={3}
           >
             <Grid item xs>
-              <TextField fullWidth label="Search data" variant="outlined" />
+              <TextField
+                fullWidth
+                label="Search data"
+                variant="outlined"
+                onChange={(e) => setSearchString(e.target.value)}
+              />
             </Grid>
             <Grid item xs={3}>
               <Button onClick={handleSearch}>Search</Button>
