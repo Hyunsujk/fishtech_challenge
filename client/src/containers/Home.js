@@ -61,7 +61,7 @@ const Home = () => {
         </Grid>
         <Grid item xs={12}>
           <ResultContainer variant="outlined">
-            {data ? JSON.stringify(data) : null}
+            <div>{data ? JSON.stringify(data, null, 2) : null}</div>
           </ResultContainer>
         </Grid>
       </Grid>
