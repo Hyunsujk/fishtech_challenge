@@ -1,5 +1,6 @@
 import React from "react";
-import { Button, TextField, Grid, Box } from "@material-ui/core";
+import { Button, TextField, Grid, Box, Typography } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
 import styled from "styled-components";
 
 const LayoutContainer = styled(Box)`
@@ -11,7 +12,7 @@ const LayoutContainer = styled(Box)`
 const ResultContainer = styled(Box)`
   border: solid 2px black;
   padding: 10px;
-  min-height: 500px;
+  height: 65vh;
   min-width: 500px;
 `;
 
@@ -41,10 +42,13 @@ const Home = () => {
         spacing={3}
       >
         <Grid item xs={12}>
+          <Typography variant="h3">Fishtech Challenge</Typography>
+        </Grid>
+        <Grid item xs={12}>
           <Grid
             container
             direction="row"
-            justify="space-evenly"
+            justify="space-between"
             alignItems="flex-end"
             spacing={3}
           >
@@ -56,8 +60,16 @@ const Home = () => {
                 onChange={(e) => setSearchString(e.target.value)}
               />
             </Grid>
-            <Grid item xs={3}>
-              <Button onClick={handleSearch}>Search</Button>
+            <Grid item xs={2}>
+              <Button
+                fullWidth
+                color="primary"
+                variant="contained"
+                startIcon={<SearchIcon />}
+                onClick={handleSearch}
+              >
+                Search
+              </Button>
             </Grid>
           </Grid>
         </Grid>
