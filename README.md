@@ -26,4 +26,4 @@ Once client and backend are running, navigate to [http://localhost:3000](http://
 Docker code is in `docker` branch.\
 To run the code locally, run `docker-compose up`
 
-The application is available on [http://localhost:3000](http://localhost:3000). But when the user clicks the search button, the user gets `localhost:3000 404 not found` error in console. I believe I need to add additional config but since this is my first time setting up Docker, I had a hard time figuring out that part. Hence, left the code in docker branch just for a reference.
+The application is available on [http://localhost:3000](http://localhost:3000). But when the user clicks the search button, the user gets `localhost:3000 404 not found` error in console. I believe I need to add additional configuration to support the http call but since this is my first time setting up Docker, I had a hard time figuring out that part. Hence, left the code in docker branch just for a reference.
