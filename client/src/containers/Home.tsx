@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 });
 
 const validationSchema = Yup.object().shape({
-  search: Yup.string().required("Required"),
+  search: Yup.string().required("Required (example: google.com)"),
 });
 
 const Home = () => {
@@ -85,7 +85,7 @@ const Home = () => {
                   <Grid item xs>
                     <Field
                       component={FormikTextField}
-                      label="Search Domain"
+                      label="Search Domain name, IP address"
                       name="search"
                     />
                   </Grid>
