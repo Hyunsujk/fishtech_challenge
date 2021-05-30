@@ -13,7 +13,7 @@ app.use(
   })
 );
 
-app.post("/getData", (req, res) => {
+app.post("/api/getData", (req, res) => {
   const searchString = req.body.searchString;
   const api_key = process.env.API_KEY;
   const url = "https://www.whoisxmlapi.com/whoisserver/WhoisService";

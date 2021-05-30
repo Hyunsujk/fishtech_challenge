@@ -35,7 +35,7 @@ const Home = () => {
 
   const handleSearch = (searchString: { search: string }) => {
     setIsLoading(true);
-    fetch("/getData", {
+    fetch("/api/getData", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ searchString: searchString.search }),
