@@ -8,28 +8,30 @@ import {
   Box,
   Typography,
   LinearProgress,
+  makeStyles,
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import styled from "styled-components";
 
-const LayoutContainer = styled(Box)`
-  margin: 2rem;
-  min-width: 90vw;
-  min-height: 80vh;
-`;
-
-const ResultContainer = styled(Box)`
-  border: solid 2px black;
-  padding: 10px;
-  height: 65vh;
-  min-width: 500px;
-`;
+const useStyles = makeStyles({
+  layoutContainer: {
+    margin: "2rem",
+    minWidth: "90vw",
+    minHeight: "80vh",
+  },
+  resultContainer: {
+    border: "solid 2px black",
+    padding: "10px",
+    height: "65vh",
+    minWidth: "500px",
+  },
+});
 
 const validationSchema = Yup.object().shape({
   search: Yup.string().required("Required"),
 });
 
 const Home = () => {
+  const { layoutContainer, resultContainer } = useStyles();
   const [data, setData] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -49,7 +51,7 @@ const Home = () => {
   };
 
   return (
-    <LayoutContainer>
+    <Box className={layoutContainer}>
       <Grid
         container
         direction="column"
@@ -105,7 +107,12 @@ const Home = () => {
           </Formik>
         </Grid>
         <Grid item xs={12}>
-          <ResultContainer component="div" overflow="auto" whiteSpace="normal">
+          <Box
+            className={resultContainer}
+            component="div"
+            overflow="auto"
+            whiteSpace="normal"
+          >
             {isLoading ? (
               <LinearProgress />
             ) : (
@@ -113,10 +120,10 @@ const Home = () => {
                 <pre>{data ? JSON.stringify(data, null, 2) : null}</pre>
               </div>
             )}
-          </ResultContainer>
+          </Box>
         </Grid>
       </Grid>
-    </LayoutContainer>
+    </Box>
   );
 };
 

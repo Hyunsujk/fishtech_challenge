@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const https = require("https");
 const querystring = require("querystring");
@@ -12,6 +13,12 @@ app.use(
     type: ["application/json", "text/plain"],
   })
 );
+
+app.use(express.static(path.resolve(__dirname, "../client/build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+});
 
 app.post("/api/getData", (req, res) => {
   const searchString = req.body.searchString;
