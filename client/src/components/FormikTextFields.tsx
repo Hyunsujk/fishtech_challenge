@@ -1,7 +1,9 @@
-import { TextField } from "@material-ui/core";
-import { getIn } from "formik";
+import { TextField, TextFieldProps } from "@material-ui/core";
+import { getIn, FieldProps } from "formik";
 
-export const FormikTextField = (props) => {
+type FormikTextFieldProps = TextFieldProps & FieldProps;
+
+const FormikTextField = (props: FormikTextFieldProps) => {
   const { error, helperText, field, form, ...rest } = props;
 
   const isTouched = getIn(form.touched, field.name);
@@ -22,3 +24,5 @@ export const FormikTextField = (props) => {
     />
   );
 };
+
+export default FormikTextField;

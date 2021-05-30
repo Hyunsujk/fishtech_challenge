@@ -1,7 +1,7 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { FormikTextField } from "../components/FormikTextFields";
+import FormikTextField from "../components/FormikTextFields";
 import {
   Button,
   Grid,
@@ -33,7 +33,7 @@ const Home = () => {
   const [data, setData] = React.useState(null);
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const handleSearch = (searchString) => {
+  const handleSearch = (searchString: { search: string }) => {
     setIsLoading(true);
     fetch("/getData", {
       method: "POST",

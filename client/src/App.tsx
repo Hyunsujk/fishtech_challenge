@@ -1,7 +1,7 @@
 import Home from "./containers/Home";
 
-function App() {
+const App = () => {
   return <Home />;
-}
+};
 
 export default App;
